@@ -19,9 +19,16 @@ namespace TestSourceTree.Managers
         public async Task<List<Comment>> GetCommentsTask()
         {
             WebClient client = new WebClient();
-            string result = await client.DownloadStringTaskAsync("https://jsonplaceholder.typicode.com/comments");
-            List<Comment> comments = JsonConvert.DeserializeObject<List<Comment>>(result);
-            return comments;
+            try
+            {
+                string result = await client.DownloadStringTaskAsync("https://jsonplaceholder.typicode.com/comments");
+                List<Comment> comments = JsonConvert.DeserializeObject<List<Comment>>(result);
+                return comments;
+            }
+            catch (WebException)
+            {
+                throw new NetworkManagerException("No internet");
+            }
         }
     }
 }
