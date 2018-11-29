@@ -14,6 +14,7 @@ namespace TestSourceTree
     {
         static async void Main(string[] args)
         {
+            System.Diagnostics.Debug.WriteLine("App started");
             NetworkManager networkManager = new NetworkManager();
             try
             {
