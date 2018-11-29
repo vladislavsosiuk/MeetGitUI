@@ -9,6 +9,11 @@ using TestSourceTree.Models;
 
 namespace TestSourceTree.Managers
 {
+    class NetworkManagerException: Exception
+    {
+        public NetworkManagerException(string message) : base(message) { }
+    }
+
     class NetworkManager
     {
         public async Task<List<Comment>> GetCommentsTask()
