@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using TestSourceTree.Managers;
 using TestSourceTree.Models;
 
 namespace TestSourceTree
@@ -13,21 +14,19 @@ namespace TestSourceTree
     {
         static async void Main(string[] args)
         {
-            WebClient client = new WebClient();
+            NetworkManager networkManager = new NetworkManager();
             try
             {
-                string result = await client.DownloadStringTaskAsync("https://jsonplaceholder.typicode.com/comments");
-                List<Comment> comments = JsonConvert.DeserializeObject<List<Comment>>(result);
+                var comments = await networkManager.GetCommentsTask();
                 foreach (var comment in comments)
                 {
                     Console.WriteLine(comment.Name);
                 }
             }
-            catch(WebException)
+            catch(NetworkManagerException ex)
             {
-                Console.WriteLine("No internet");
+                Console.WriteLine(ex.Message);
             }
-            
         }
     }
 }
