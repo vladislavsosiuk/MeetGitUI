@@ -14,12 +14,20 @@ namespace TestSourceTree
         static async void Main(string[] args)
         {
             WebClient client = new WebClient();
-            string result = await client.DownloadStringTaskAsync("https://jsonplaceholder.typicode.com/comments");
-            List<Comment> comments = JsonConvert.DeserializeObject<List<Comment>>(result);
-            foreach (var comment in comments)
+            try
             {
-                Console.WriteLine(comment.Name);
+                string result = await client.DownloadStringTaskAsync("https://jsonplaceholder.typicode.com/comments");
+                List<Comment> comments = JsonConvert.DeserializeObject<List<Comment>>(result);
+                foreach (var comment in comments)
+                {
+                    Console.WriteLine(comment.Name);
+                }
             }
+            catch(WebException)
+            {
+                Console.WriteLine("No internet");
+            }
+            
         }
     }
 }
