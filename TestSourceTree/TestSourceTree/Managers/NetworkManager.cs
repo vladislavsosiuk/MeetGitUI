@@ -18,6 +18,7 @@ namespace TestSourceTree.Managers
     {
         public async Task<List<Comment>> GetCommentsTask()
         {
+            System.Diagnostics.Debug.WriteLine("Will start downloading comment");
             WebClient client = new WebClient();
             try
             {
